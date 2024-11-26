@@ -1,0 +1,25 @@
+# GitHub Actions的名称，用于在GitHub界面中显示
+name: "Hello World"
+
+# 定义何时触发此工作流。在这种情况下，当代码推送到仓库时触发
+on: [push]
+
+jobs:
+  # 定义一个作业，名称为hello_world_job
+  hello_world_job:
+    # 指定在什么操作系统环境中运行作业。在这里，我们使用最新的Ubuntu环境
+    runs-on: ubuntu-latest
+
+    steps:
+      # 第一步：检出代码仓库内容
+      - name: Checkout repository
+        # 使用官方的actions/checkout动作
+        uses: actions/checkout@v2
+      
+      # 第二步：运行自定义的Hello World Action
+      - name: Run Hello World Action
+        # 使用当前目录中的自定义Action
+        uses: ./
+        with:
+          # 传递给Action的输入参数name，其值为GitHub
+          name: 'GitHub'
