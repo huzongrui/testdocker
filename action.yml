@@ -1,0 +1,23 @@
+# 这是 GitHub Action 的名称
+name: 'Hello World Action'
+
+# 这是对这个 Action 的描述
+description: 'Greet someone with Hello World'
+
+# 定义输入参数
+inputs:
+  # 输入参数名称是 'name'
+  name:
+    # 这个参数的描述
+    description: 'The name of the person to greet'
+    # 这个参数是否是必需的
+    required: false
+    # 这个参数的默认值
+    default: 'World'
+
+# 定义运行环境
+runs:
+  # 使用 Docker 容器来运行这个 Action
+  using: 'docker'
+  # 使用指定的 Dockerfile 来构建 Docker 镜像
+  image: 'Dockerfile'
