@@ -10,5 +10,5 @@ func main() {
 	if name == "" {
 		name = "World"
 	}
-	fmt.Printf("Hello, %s!\n", name)
+	fmt.Printf("Hello!, %s!\n", name)
 }
