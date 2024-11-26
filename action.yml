@@ -20,4 +20,4 @@ runs:
   # 使用 Docker 容器来运行这个 Action
   using: 'docker'
   # 使用指定的 Dockerfile 来构建 Docker 镜像
-  image: 'Dockerfile'
+  image: 'dockerfile'
