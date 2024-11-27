@@ -16,7 +16,7 @@ jobs:
           ALIYUN_USERNAME: ${{ secrets.ALIYUN_USERNAME }}
           ALIYUN_PASSWORD: ${{ secrets.ALIYUN_PASSWORD }}
         run: |
-          echo $ALIYUN_PASSWORD | docker login --username $ALIYUN_USERNAME --password-stdin registry.cn-hangzhou.aliyuncs.com
+          echo $ALIYUN_PASSWORD | docker login --username $ALIYUN_USERNAME --password-stdin crpi-p6x0x9yzk6kuewlv.cn-shanghai.personal.cr.aliyuncs.com
 
       # 第三步：构建并推送 Docker 镜像到阿里云
       - name: Build and push Docker image
@@ -24,4 +24,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_USERNAME }}/my-go-action:latest
+          tags: crpi-p6x0x9yzk6kuewlv.cn-shanghai.personal.cr.aliyuncs.com/${{ secrets.ALIYUN_USERNAME }}/my-go-action:latest
