@@ -1,0 +1,24 @@
+name: Docker Image CI
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 第一步：检出代码仓库内容
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      # 第二步：登录到阿里云容器镜像服务
+      - name: Login to Alibaba Cloud Container Registry
+        run: |
+          echo ${{ secrets.ALIYUN_PASSWORD }} | docker login --username ${{ secrets.ALIYUN_USERNAME }} registry.cn-hangzhou.aliyuncs.com --password-stdin
+      
+      # 第三步：构建并推送 Docker 镜像到阿里云
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_USERNAME }}/my-go-action:latest
