@@ -18,10 +18,12 @@ jobs:
         run: |
           echo $ALIYUN_PASSWORD | docker login --username $ALIYUN_USERNAME --password-stdin crpi-p6x0x9yzk6kuewlv.cn-shanghai.personal.cr.aliyuncs.com
 
-      # 第三步：构建并推送 Docker 镜像到阿里云
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: crpi-p6x0x9yzk6kuewlv.cn-shanghai.personal.cr.aliyuncs.com/${{ secrets.ALIYUN_USERNAME }}/my-go-action:latest
+      # 第三步：构建 Docker 镜像
+      - name: Build Docker image
+        run: |
+          docker build -t crpi-p6x0x9yzk6kuewlv.cn-shanghai.personal.cr.aliyuncs.com/mytest_hzr/test:latest .
+
+      # 第四步：推送 Docker 镜像到阿里云
+      - name: Push Docker image
+        run: |
+          docker push crpi-p6x0x9yzk6kuewlv.cn-shanghai.personal.cr.aliyuncs.com/mytest_hzr/test:latest
