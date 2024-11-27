@@ -21,9 +21,9 @@ jobs:
       # 第三步：构建 Docker 镜像
       - name: Build Docker image
         run: |
-          docker build -t crpi-p6x0x9yzk6kuewlv.cn-shanghai.personal.cr.aliyuncs.com/mytest_hzr/test1:latest .
+          docker build -t crpi-p6x0x9yzk6kuewlv.cn-shanghai.personal.cr.aliyuncs.com/mytest_hzr/test2:latest .
 
       # 第四步：推送 Docker 镜像到阿里云
       - name: Push Docker image
         run: |
-          docker push crpi-p6x0x9yzk6kuewlv.cn-shanghai.personal.cr.aliyuncs.com/mytest_hzr/test1:latest
+          docker push crpi-p6x0x9yzk6kuewlv.cn-shanghai.personal.cr.aliyuncs.com/mytest_hzr/test2:latest
