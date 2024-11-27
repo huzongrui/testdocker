@@ -13,7 +13,7 @@ jobs:
       # 第二步：登录到阿里云容器镜像服务
       - name: Login to Alibaba Cloud Container Registry
         run: |
-          echo ${{ secrets.ALIYUN_PASSWORD }} | docker login --username ${{ secrets.ALIYUN_USERNAME }} registry.cn-hangzhou.aliyuncs.com --password-stdin
+          echo ${{ secrets.ALIYUN_PASSWORD }} | docker login --username ${{ secrets.ALIYUN_USERNAME }} registry.cn-hangzhou.aliyuncs.com
       
       # 第三步：构建并推送 Docker 镜像到阿里云
       - name: Build and push Docker image
