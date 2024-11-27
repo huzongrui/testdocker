@@ -15,7 +15,8 @@ jobs:
         env:
           ALIYUN_USERNAME: ${{ secrets.ALIYUN_USERNAME }}
           ALIYUN_PASSWORD: ${{ secrets.ALIYUN_PASSWORD }}
-        run: docker login --username $ALIYUN_USERNAME --password $ALIYUN_PASSWORD registry.cn-hangzhou.aliyuncs.com
+        run: |
+          echo $ALIYUN_PASSWORD | docker login --username $ALIYUN_USERNAME --password-stdin registry.cn-hangzhou.aliyuncs.com
 
       # 第三步：构建并推送 Docker 镜像到阿里云
       - name: Build and push Docker image
