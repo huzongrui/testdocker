@@ -1,0 +1,187 @@
+run:
+  modules-download-mode: vendor
+  timeout: 5m
+
+linters:
+  disable-all: true
+  enable:
+    # 进制使用非ASCII字符
+    - asciicheck
+    - bidichk
+    # 降低代码复杂度
+    - cyclop
+    - gocyclo
+    - gocognit
+    - maintidx
+    # 高可拓展性的go源码linter
+    - gocritic
+    # 禁止保留未使用的代码块
+    - ineffassign
+    # 减少代码拷贝
+    - dupl
+    # 禁止两个time.Duration类型相乘
+    - durationcheck
+    # 所有error都要处理
+    - errcheck
+    # 在Go 1.13之后使用errors.Wrap可能导致的问题
+    - errorlint
+    # 检查switch的全面性，以免遗漏
+    - exhaustive
+    # 禁止将for-range value的指针暴露给外部, Go版本小于等于1.22的需要使用exportloopref, 大于则用copyloopvar
+    - copyloopvar
+    # 禁止使用特定的标识符
+    - forbidigo
+    # 禁止出现长函数
+    - funlen
+    # 控制golang的包引用顺序
+    - gci
+    # 禁止使用全局变量，需要使用则使用注释 //nolint:gochecknoglobals 说明原因
+    - gochecknoglobals
+    # 禁止使用init函数
+    - gochecknoinits
+    # 若有相同的string变量则使用const替换
+    - goconst
+    # 检查if语句是否有简单的语法
+    # - ifshort
+    # 禁止出现长语句
+    - lll
+    # struct禁止包含context.Context字段
+    - containedctx
+    # 返回两个参数，一个数据，一个error，禁止两个nil
+    - nilnil
+    # 禁止使用Sprintf去构造URL中的host和port
+    - nosprintfhostport
+    # 若知道slice大小，定义时需分配空间
+    - prealloc
+    # 检查prometheus meteics的指标名规范
+    - promlinter
+    # 强烈要求const/import/var在一个组
+    - grouper
+    # 检查Go 1.17版本是否使用os.Setenv替换t.Setenv
+    - tenv
+    # 检查变量名长度
+    - varnamelen
+    # 强制import别名一致
+    - importas
+    # 类型断言时需检查是否成功
+    - forcetypeassert
+    # 保证类型、常量、变量和函数的声明顺序和数量
+    - decorder
+    # 检查error的定义规范--types类型的定义是以Error结尾的，常量定义是Err开头
+    - errname
+    # SQL Query方法错误检查
+    # - execinquery
+    # 禁止errors使用'=='和'!='表达式--与nil和io.EOF比较除外
+    - err113
+    # 官方代码格式化
+    - gofmt
+    - gofumpt
+    - goimports
+    # 禁止使用魔法数字
+    - mnd
+    # 检查依赖的黑白名单
+    - gomodguard
+    # 检查printf的函数是否以f结尾
+    - goprintffuncname
+    # 安全检查
+    - gosec
+    # 官方的错误检查
+    - govet
+    # 检查拼写错误
+    - misspell
+    # 如果函数过长，禁用裸返回
+    - nakedret
+    # 禁止深度嵌套if语句
+    - nestif
+    # 若使用nolint需要给出理由-- //nolint:gochecknoglobals // 原因
+    - nolintlint
+    # 禁止使用Go关键字命名
+    - predeclared
+    # 去掉没有必要的type转换
+    - unconvert
+    # 强制使用空行, 最好不要与gofumpt同时使用
+    # - wsl
+    # 检查文件头部和尾部的换行
+    - whitespace
+    # 替换golint的
+    - revive
+    # 测试代码使用*_test的包目录
+    - testpackage
+    # 启用并行测试
+    - paralleltest
+    # 检查帮助函数里面有没有调用t.Helper()函数
+    - thelper
+    # linter默认
+    - gosimple
+    - staticcheck
+    - unused
+    # 检查http是否已经关闭
+    - bodyclose
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true # 检查类型判断
+    check-blank: true # 检查使用_来处理错误
+  errorlint:
+    errorf: true # 检查fmt.Errorf错误是否用%w
+  exhaustive:
+    check-generated: false # 不检查生成的文件
+    default-signifies-exhaustive: false # 不检查是否有default
+  funlen:
+    lines: 65 # 一个函数的总行数限制
+    statements: 40 # 检查函数中语句的数量
+    ignore-comments: true
+  gci:
+    sections:
+      - standard # 标准库
+      - default # 默认按字典顺序排序
+      - prefix(github.com/org/project) # 特殊前缀的包
+      - blank
+      - dot
+      - alias
+      - localmodule
+  lll:
+    line-length: 120
+    tab-width: 1
+  govet:
+    enable-all: true
+  gocyclo:
+    min-complexity: 15
+  cyclop:
+    skip-tests: false
+    max-complexity: 15
+    package-average: 0
+  gosimple:
+    checks: ["all"]
+  staticcheck:
+    checks: ["all"]
+  gofmt:
+    rewrite-rules:
+      - pattern: "interface{}"
+        replacement: "any"
+      - pattern: "a[b:len(a)]"
+        replacement: "a[b:]"
+      - pattern: "a[0:b]"
+        replacement: "a[:b]"
+  paralleltest:
+    ignore-missing: true
+    ignore-missing-subtests: true
+  revive:
+    rules:
+      - name: unexported-return
+        disabled: true
+  varnamelen:
+    max-distance: 6
+    min-name-length: 2
+    check-receiver: false
+    check-return: false
+    check-type-param: false
+    ignore-type-assert-ok: true
+    ignore-map-index-ok: true
+    ignore-chan-recv-ok: true
+  gosec:
+    exclude-generated: true
+    excludes:
+      - G107 # 去除http访问的url必须是const类型的检查
+  gofumpt:
+    module-path: DataPrediction # 此处需要根据不同项目名称来修改
