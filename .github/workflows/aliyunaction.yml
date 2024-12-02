@@ -9,6 +9,7 @@ jobs:
       # 第一步：检出代码仓库内容
       - name: Checkout repository
         uses: actions/checkout@v2
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       # 第二步：设置环境变量并登录到阿里云容器镜像服务
       - name: Login to Alibaba Cloud Container Registry
@@ -17,13 +18,18 @@ jobs:
           ALIYUN_PASSWORD: ${{ secrets.ALIYUN_PASSWORD }}
         run: |
           echo $ALIYUN_PASSWORD | docker login --username $ALIYUN_USERNAME --password-stdin crpi-p6x0x9yzk6kuewlv.cn-shanghai.personal.cr.aliyuncs.com
-
-      # 第三步：构建 Docker 镜像
-      - name: Build Docker image
+      # 构建 Docker 镜像
+      - name: Build Docker image and push
         run: |
-          docker build -t crpi-p6x0x9yzk6kuewlv.cn-shanghai.personal.cr.aliyuncs.com/mytest_hzr/test2:latest .
+          export "TAG=${{ env.RELEASE_VERSION == 'master' && 'latest' || env.RELEASE_VERSION }}"
+          echo $TAG
+          make deploy TAG=$TAG
+      # # 第三步：构建 Docker 镜像
+      # - name: Build Docker image
+      #   run: |
+      #     docker build -t crpi-p6x0x9yzk6kuewlv.cn-shanghai.personal.cr.aliyuncs.com/mytest_hzr/test2:latest .
 
-      # 第四步：推送 Docker 镜像到阿里云
-      - name: Push Docker image
-        run: |
-          docker push crpi-p6x0x9yzk6kuewlv.cn-shanghai.personal.cr.aliyuncs.com/mytest_hzr/test2:latest
+      # # 第四步：推送 Docker 镜像到阿里云
+      # - name: Push Docker image
+      #   run: |
+      #     docker push crpi-p6x0x9yzk6kuewlv.cn-shanghai.personal.cr.aliyuncs.com/mytest_hzr/test2:latest
