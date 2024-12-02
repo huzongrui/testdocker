@@ -6,12 +6,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 第一步：检出代码仓库内容
+      # 检出代码仓库内容
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: set tag  
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
-      # 第二步：设置环境变量并登录到阿里云容器镜像服务
+      # 设置环境变量并登录到阿里云容器镜像服务
       - name: Login to Alibaba Cloud Container Registry
         env:
           ALIYUN_USERNAME: ${{ secrets.ALIYUN_USERNAME }}
