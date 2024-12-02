@@ -22,7 +22,7 @@ jobs:
       # 构建 Docker 镜像
       - name: Build Docker image and push
         run: |
-          export "TAG=${{ env.RELEASE_VERSION == 'master' && 'latest' || env.RELEASE_VERSION }}"
+          export "TAG=${{ env.RELEASE_VERSION == 'main' && 'latest' || env.RELEASE_VERSION }}"
           echo $TAG
           make deploy TAG=$TAG
       # # 第三步：构建 Docker 镜像
