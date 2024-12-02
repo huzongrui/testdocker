@@ -1,5 +1,5 @@
 # GitHub Actions的名称，用于在GitHub界面中显示
-name: "Build and Push Docker Image"
+# name: "Build and Push Docker Image"
 
 # 定义何时触发此工作流。在这种情况下，当代码推送到仓库时触发
 # on: [push]
