@@ -34,3 +34,4 @@ COPY --from=builder /app/my-go-action /app/my-go-action
 # 设置ENTRYPOINT
 ENTRYPOINT ["/app/my-go-action"]
 
+EXPOSE 8080

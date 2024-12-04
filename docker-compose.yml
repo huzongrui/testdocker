@@ -1,0 +1,10 @@
+version: '3'
+services:
+  myapp:
+    image: myproject
+    container_name: mycontainer
+    ports:
+      - "8080:8080"
+    environment:
+      - TZ=Asia/Hong_Kong
+    command: /bin/sh -c "ntpdate -s time.nist.gov && /app/myapp"

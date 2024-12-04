@@ -36,7 +36,7 @@ $(VIEWS):
 $(VENDOR):
 	if [ ! -d $(VENDOR) ]; then go mod vendor; fi
 
-lint: dep
+lint:
 	$(LINTER) run ./...
 
 test:
